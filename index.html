@@ -1,0 +1,1321 @@
+<!-- Made by @cxzcr A.K.A Тагиров Роман-->
+<!-- Linekeys: 9-222 lines CSS styles. -->
+<!-- 266-843 Tests & Questions -->
+<!-- Line 269 Score Per Question for Test 1 -->
+<!-- Line 609 Score Per Question for Test 2 -->
+<!-- 845-1294 JS scripts -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расширенная оценка нейромедиаторов: комплексный тест для определения баланса мозга</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      padding: 10px;
+    }
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-block {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f2f2f2;
+      border-radius: 4px;
+    }
+    .question p {
+      margin: 0;
+      flex: 1;
+      padding-right: 10px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 28px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    input:checked + .slider {
+      background-color: #007BFF;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+    .next-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      font-size: 16px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .next-btn:hover {
+      background: #0056b3;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .results {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .result-table th, .result-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    .unified-chart {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+    }
+    .legend {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .legend span {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    .legend .dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .descriptions {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .descriptions h4 {
+      margin-bottom: 5px;
+    }
+    .descriptions p {
+      margin-bottom: 10px;
+    }
+    /* Стили для главного меню */
+    #main-menu {
+      margin-bottom: 20px;
+    }
+    #main-menu h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      background: #f2f2f2;
+      border-radius: 4px;
+    }
+    .menu-item span {
+      font-size: 18px;
+    }
+    .menu-btn {
+      padding: 8px 16px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .menu-btn:hover {
+      background: #0056b3;
+    }
+    .accordion-item {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      background: #f2f2f2;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      position: relative;
+    }
+    .accordion-header::after {
+      content: '\25BC';
+      position: absolute;
+      right: 10px;
+      transition: transform 0.3s;
+    }
+    .accordion-header.active::after {
+      transform: rotate(180deg);
+    }
+    .accordion-content {
+      display: none;
+      padding: 10px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="main-menu">
+      <img src="https://images.freeimages.com/image/previews/203/kawaii-brain-organ-png-art-5691991.png" alt="Изображение мозга" style="display: block; margin: 0 auto 20px; max-width: 200px;">
+      <h2>Пожалуйста, выберите тест для анализа баланса нейромедиаторов вашего мозга</h2>
+      <div class="menu-item">
+        <span>Тест для выявления преобладающего нейромедиатора</span>
+        <button id="start-first-test" class="menu-btn">Начать тест</button>
+      </div>
+      <div class="menu-item">
+        <span>Тест для выявления недостающего нейромедиатора</span>
+        <button id="start-second-test" class="menu-btn">Начать тест</button>
+      </div>
+    </div>
+    <h2 id="test-title" class="hidden"></h2>
+    <div id="question-container" class="question-block hidden"></div>
+    <button id="next-btn" class="next-btn">Продолжить тест: перейти к следующему разделу</button>
+    <div id="intermediate-results" class="results hidden"></div>
+    <div id="results" class="results hidden">
+      <h3>Итоговый анализ результатов теста</h3>
+      <table class="result-table" id="result-table">
+        <thead>
+          <tr>
+            <th>Нейромедиатор</th>
+            <th>Процент баллов (%)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="unified-chart" id="unified-chart"></div>
+      <div class="legend" id="legend"></div>
+      <div id="interpretation" style="margin-top: 20px;"></div>
+      <div class="descriptions" id="descriptions"></div>
+    </div>
+
+  <script>
+const tests = [
+    {
+      name: "Тест для выявления доминирующего нейромедиатора",
+      scorePerQuestion: 2,
+      operation: "add",
+      initialScore: 0,
+      categories: [
+        {
+          name: "Дофамин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "Легко решаю задачи в уме",
+                "Легко концентрируюсь",
+                "Мыслю глубоко",
+                "Я быстро соображаю",
+                "Отвлекаюсь при многозадачности",
+                "Люблю спорить",
+                "Развито воображение",
+                "Склонен к самоанализу и самокритике"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня много энергии",
+                "Часто у меня повышено давление",
+                "Иногда я чувствую мощный прилив сил",
+                "У меня бывает бессонница",
+                "Мне не нужен кофе по утрам",
+                "Мои вены видны и разлечимы",
+                "Немного бывает повышенна температура тела"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Часто я обедаю во время работы",
+                "Чем больше домашнего задания, тем лучше",
+                "Я вспыльчивый",
+                "Спорт дают мне заряд энергии на день",
+                "Я ем только когда я голоден",
+                "Мне нравятся боевики",
+                "Чувствую, что спорт делает меня сильным"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Люди считают меня упрямым",
+                "Люди считают меня нацеленым на результат",
+                "Некоторые считают меня иррациональным",
+                "Сделаю всё ради достижения цели",
+                "Уважаю религиозную философию",
+                "Некомпетентность меня злит",
+                "Предъявляю высокие стандарты к себе и другим"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я очень властный человек",
+                "Иногда я не замечаю своих чувств",
+                "Мне трудно слушать других, из-за своего мнения",
+                "Я решаю конфликты силой",
+                "Я склонен смотреть в будущее",
+                "Я расчетлив",
+                "Большинство считает, что я думаю на несколько шагов вперед"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я мечтаю и часто фантазирую",
+                "Люблю читать историю и научпоп",
+                "Восхищаюсь изобретательностью",
+                "Сразу определяю проблемных людей",
+                "Верю, что если людям нужна помощь,то они честны со мной",
+                "Большинство людей считают меня современным",
+                "Могу рационально объяснить свои новые или странные идеи"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я часто взволнован или раздражён",
+                "Меня беспокоят или расстраивают мелочи",
+                "Я мечтаю о неграниченной власти",
+                "Я люблю тратить деньги",
+                "У меня доминантная позиция в отношениях",
+                "Я очень требовательный к себе",
+                "Я агрессивно реагирую на критику,занимаю оборонительную позицию"
+              ]
+            }
+          ]
+        },
+        {
+          name: "Ацетилхолин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "У меня отличная память",
+                "Я хороший слушатель",
+                "Я подробно запоминаю истории",
+                "Я обычно не забываю лица людей",
+                "Я замечаю всё, что происходит вокруг меня"
+              ]
+            },
+            {
+              name: "Память и внимание",
+              questions: [
+                "Я очень креативный",
+                "У меня отличная концентрация и я редко что-то пропускаю",
+                "Я в основном вижу положительные моменты",
+                "У меня хорошее воображение"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня обычно замедленный пульс",
+                "Мое тело в тонусе",
+                "Я люблю йогу и растяжку мышц",
+                "Во время приема пищи я пытаюсь больше почувствовать вкус, нежели просто есть",
+                "У меня часто проблемы с желудком"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Мне нравится нетрадиционная медицина",
+                "У меня отличная фигура/сложение",
+                "У меня действительно низкий уровень холестерина",
+                "Когда я ем, то люблю ощущать ароматы и красоту еды",
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Я оптимист",
+                "Мне нравится помогать другим людям",
+                "Всё возможно, если предан своей цели",
+                "Благотворительность и альтруизм — мой выбор",
+                "Другие думают, что я хорошо анализировую  будущее",
+                "Мои мысли о религии часто меняются",
+                "Я идеалист, но не перфекционист",
+                "Я счастлив с тем, кто относится ко мне правильно"
+              ]
+            },
+            {
+              name: "Личность",
+              subcategories: [],
+              questions: [
+                "Я склонен к романтике",
+                "Я часто отдаю волю чувствам",
+                "Я принимаю решения, основываясь на догадках",
+                "Мне нравится размышлять",
+                "Иногда люди говорят, что я \"летаю в облаках\"",
+                "Я люблю читать художественную литературу",
+                "У меня богатая фантазия"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я люблю говорить о том, что меня волнует",
+                "Обычно я бодр",
+                "Я верю в мистику",
+                "Я верю в родственные души",
+                "Меня интересует всё загадочное",
+                "У меня есть черты ипохондрии",
+                "Мне легко что-то менять"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Могу любить кого-то в одну минуту и ненавидеть следующую",
+                "Я стараюсь нравиться лицам противоположенного пола",
+                "Я готов тратить деньги, если это идёт на пользу отношениям",
+                "Я склонен фантазировать, когда занимаюсь творческими заданиями",
+                "Мои отношения, как правило, наполнены романтикой",
+                "Я достаточно эмоционален",
+                "Я творчески подхожу к решению проблем людей"
+              ]
+            }
+          ]
+        },
+        {
+          name: "ГАМК",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "У меня отличная концентрация, и я могу легко искать логику других людей",
+                "Истории людей лучше, чем книги",
+                "Я запоминаю большую часть того, что слышу",
+                "Я могу помнить факты, которые мне рассказали",
+                "Я учусь на своём опыте",
+                "Я хорошо запоминаю имена",
+                "Я хороший слушатель"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня дрожат руки",
+                "У меня частые боли в спине и/или головные боли",
+                "У меня часто бывает одышка",
+                "У меня часто бывает учащённое сердцебиение",
+                "Обычно у меня холодные руки",
+                "Иногда я слишком сильно потею",
+                "Иногда у меня кружится голова",
+                "У меня часто эффект \"бабочки в животе\""
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Я не могу без острой пищи",
+                "Я часто нервничаю",
+                "Мне нравится йога для расслабления",
+                "Я чувствую себя уставшим, даже когда хорошо выспался",
+                "Я чувствую, что перегорел"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Я рано ложусь спать и рано встаю",
+                "Я пунктуален",
+                "Я стараюсь угодить другим, насколько могу",
+                "Я перфекционист",
+                "Я умею поддерживать длительные отношения",
+                "Я знаю, куда уходят мои деньги",
+                "Я верю, что чем больше моральных качеств, тем больше мира",
+                "Я очень верен и предан своим близким"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "У меня высокие этические стандарты, которыми я живу",
+                "Я уделяю большое внимание законам, принципам и политике",
+                "Я верю в социум и общество"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я не авантюрист",
+                "Обычно я не темпераментный",
+                "У меня отличное терпение",
+                "Философия не для меня",
+                "Я опираюсь на прошлый опыт при принятии решения"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я реалист",
+                "Я думаю, что всегда можно договориться",
+                "Я люблю смотреть сериалы про семью",
+                "Я не люблю фильмы о других мирах",
+                "Я не любитель рисковать",
+                "Я люблю факты и детали"
+              ]
+            }
+          ]
+        },
+        {
+          name: "Серотонин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "Я могу легко сосредоточиться, когда делаю что-то руками ",
+                "У меня хорошая зрительная память",
+                "Я очень проницателен",
+                "Я импульсивный",
+                "Я живу одним днём",
+                "Мне нужна практика, а не теория"
+              ]
+            },
+            {
+              name: "Память и внимание",
+              questions: [
+                "Я не очень проницателен",
+                "У меня плохая зрительная память",
+                "Моя реакция ниже среднего",
+                "Я обычно стараюсь разобраться в деталях",
+                "Я плохо учусь по книгам, но легко на своем опыте",
+                "Я плохо ориентируюсь на местности"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Я сильно потею ночью",
+                "У меня бессонца",
+                "Я сплю в разных позах",
+                "Я всегда просыпаюсь рано",
+                "Я люблю солёную еду"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня стало меньше энергии для тренировок",
+                "Я часто не могу расслабиться",
+                "Я часто просыпаюсь ночью",
+                "Если ночью я проснулся, то с трудом могу снова заснуть",
+                "Я часто чувствую себя грустно"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Я не могу перестать думать о смысле жизни",
+                "Я больше не рискую",
+                "Если в моей жизни нет смысла, то я чувствую разочарование"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "У меня хроническая тревожность",
+                "Я легко раздражаюсь",
+                "У меня есть мысли о самоубийстве",
+                "Я склонен зацикливаться на своих идеях",
+                "Я более рационален и менее гибкий в мышлении",
+                "Мое воображение берет верх над реальностью",
+                "Меня иногда охватывает сильный страх"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "Тест для оценки дефицита или снижения активности нейромедиатора",
+      scorePerQuestion: 4,
+      operation: "subtract",
+      initialScore: 100,
+      categories: [
+        {
+          name: "Дофамин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "У меня постоянные проблемы с вниманием и концентрацией",
+                "Мне нужен кофеин, чтобы проснуться",
+                "Я перестал думать достаточно быстро",
+                "Концентрация внимания стала немного хуже",
+                "У меня проблемы с выполнением интересной мне задачи",
+                "Мне диагностировали СДВГ/СДВ",
+                "Новые идеи стали приходить ко мне реже"
+              ]
+            },
+            {
+              name: "Физиология и характер",
+              questions: [
+                "Я не могу без сахара",
+                "У меня снизилось либидо",
+                "Я стал слишком много спать",
+                "У меня есть признаки алкогольной/наркотической зависимости",
+                "У меня были проблемы с кокаином, амфетамином или экстази"
+              ]
+            },
+            {
+              name: "Физиология и характер",
+              questions: [
+                "Вставать с утра для меня не проблема",
+                "В последнее время я чувствую себя измотанным",
+                "Я всегда имел проблемы с лишним весом",
+                "Компьютерные игры последнее время мне почти не интересен",
+                "Я стал хуже рассуждать",
+                "Я перестал принимать правильные решения"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я чувствую себя хорошо, просто следуя за другими",
+                "Люди обычно используют меня",
+                "Я чувствую себя подавленным или с признаками депрессии",
+                "Люди говорят, что я слишком мягкий",
+                "Я перестал решать проблемы срочно и действовать быстро",
+                "Я позволяю людям критиковать меня",
+                "Я ведомый человек. Ориентируюсь на других"
+              ]
+            }
+          ]
+        },
+        {
+          name: "Ацетилхолин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "Мне не хватает воображения",
+                "Мне трудно запоминать имена",
+                "Я заметил, что моя память стала хуже",
+                "Моя вторая половинка говорит мне, что я не романтик",
+                "Я не могу запоминать дни рождения близких",
+                "Я стал менее творческим"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня бессонница",
+                "Мое тело больше не в тонусе",
+                "Я перестал ходить на тренировки",
+                "Я люблю жирную еду",
+                "Я экспериментировал с галлюциногенами",
+                "У меня появилась отдышка"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Меня не интересуют чьи-либо проблемы, кроме моих собственных",
+                "Я не обращаю внимания на чувства других людей",
+                "Я перестал чувствовать себя бодрым"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я редко испытываю радость",
+                "Я стал чувствовать отчаяние",
+                "Чтобы чувствовать себя безопасно, я не рассказываю о себе много",
+                "Мне удобнее работать в одиночку, чем в компании",
+                "Я не злюсь из-за надоедливых вещей",
+                "Я легко сдаюсь и склонен быть покорным",
+                "Я редко испытываю страсть к чему-либо",
+                "Мне нравится рутина"
+              ]
+            }
+          ]
+        },
+        {
+          name: "ГАМК",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "Мне трудно сосредоточиться из-за нервов",
+                "Я не могу запомнить номера телефонов",
+                "У меня проблемы с поиском подходящего слова",
+                "Мне трудно что-то вспомнить, когда меня просят",
+                "Я знаю, что умный, но не могу это преподнести людям",
+                "Когда я читаю, то часто возвращаюсь к одному и тому же абзацу",
+                "У меня проблемы с фокусом внимания"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "У меня дрожат руки",
+                "У меня частые боли в спине и/или головные боли",
+                "У меня часто бывает одышка",
+                "У меня часто бывает учащённое сердцебиение",
+                "Обычно у меня холодные руки",
+                "Иногда я слишком сильно потею",
+                "Иногда у меня кружится голова",
+                "У меня часто эффект \"бабочки в животе\""
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Я не могу без острой пищи",
+                "Я часто нервничаю",
+                "Мне нравится йога, потому что помогает мне расслабиться",
+                "Я часто чувствую себя усталым, даже когда хорошо выспался",
+                "Я чувствую, что перегорел"
+              ]
+            },
+            {
+              name: "Характер",
+              questions: [
+                "Я больше не играю по правилам",
+                "Я теряю связь с друзьями и близкими",
+                "Романтика — это не для меня",
+                "Я перфекционист",
+                "Законы для меня произвольны и необоснованны",
+                "Теперь я считаю странными правила, которым раньше следовал"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "У меня часто перепады настроения",
+                "Мне нравится делать много дел одновременно",
+                "мне трудно решить, что сделать в первую очередь",
+                "Я склонен чрезмерно волноваться о разных вещах",
+                "Моя импульсивность доставляет мне много неприятностей",
+                "Я артистичен и люблю привлекать к себе внимание"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "Я реалист",
+                "Я склонен делать что-то, что приносит удовольствие",
+                "Когда все скучно, я стараюсь привнести немного азарта",
+                "У меня часто меняется настроение",
+                "Я высказываю своё мнение, не смотря на реакцию окружающих",
+                "Я люблю факты и детали"
+              ]
+            }
+          ]
+        },
+        {
+          name: "Серотонин",
+          subcategories: [
+            {
+              name: "Память и внимание",
+              questions: [
+                "Я не очень проницателен",
+                "У меня плохая зрительная память",
+                "У меня медленная реакция",
+                "Я плохо ориентируюсь на местности"
+              ]
+            },
+            {
+              name: "Физиология",
+              questions: [
+                "Я сильно потею ночью",
+                "У меня бессонца",
+                "Я сплю в разных позах для комфорта",
+                "Я всегда просыпаюсь рано",
+                "Я часто не могу расслабиться",
+                "Я часто просыпаюсь ночью",
+                "Если ночью я проснулся, то с трудом могу снова заснуть",
+                "Я люблю солёную еду"
+              ]
+            },
+            {
+              name: "Физиология и характер",
+              questions: [
+                "У меня стало меньше энергии для тренировок",
+                "Я часто чувствую себя грустно",
+                "Я не могу перестать думать о смысле жизни",
+                "Я больше не рискую",
+                "Если в моей жизни нет смысла, то я разочаровываюсь"
+              ]
+            },
+            {
+              name: "Личность",
+              questions: [
+                "У меня хроническая тревожность",
+                "Я легко раздражаюсь",
+                "У меня есть мысли о самоубийстве",
+                "Я склонен зацикливаться на своих идеях",
+                "Я более рационален и менее гибкий в мышлении",
+                "Мое воображение берет верх над реальностью",
+                "Меня иногда охватывает сильный страх"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  let currentTestIndex = 0;
+let currentCategoryIndex = 0;
+let currentSubcategoryIndex = 0;
+let scores = {};
+let finalScores = {};
+
+const mainMenuEl = document.getElementById('main-menu');
+const testTitleEl = document.getElementById('test-title');
+const questionContainer = document.getElementById('question-container');
+const nextBtn = document.getElementById('next-btn');
+const intermediateResultsEl = document.getElementById('intermediate-results');
+const resultsEl = document.getElementById('results');
+const resultTableBody = document.querySelector('#result-table tbody');
+const unifiedChartContainer = document.getElementById('unified-chart');
+const legendEl = document.getElementById('legend');
+const interpretationEl = document.getElementById('interpretation');
+const descriptionsEl = document.getElementById('descriptions');
+
+nextBtn.style.display = "none";
+questionContainer.style.display = "none";
+resultsEl.style.display = "none";
+
+function initScores(test) {
+  scores = {};
+  finalScores = {};
+  test.categories.forEach(cat => {
+    scores[cat.name] = test.initialScore;
+    finalScores[cat.name] = test.initialScore;
+  });
+}
+
+function loadCurrentQuestion() {
+  try {
+    const test = tests[currentTestIndex];
+    testTitleEl.textContent = test.name;
+    testTitleEl.classList.remove('hidden');
+
+    const category = test.categories[currentCategoryIndex];
+    const subcategory = category.subcategories[currentSubcategoryIndex];
+
+    questionContainer.innerHTML = `<h3>${category.name} — ${subcategory.name}</h3>`;
+    subcategory.questions.forEach((q, idx) => {
+      const qDiv = document.createElement('div');
+      qDiv.className = 'question';
+      qDiv.innerHTML = `
+        <p>${q}</p>
+        <label class="switch">
+          <input type="checkbox" name="q${idx}">
+          <span class="slider"></span>
+        </label>
+      `;
+      questionContainer.appendChild(qDiv);
+    });
+
+    questionContainer.style.display = "block";
+    nextBtn.style.display = "block";
+  } catch (e) {
+    console.error("Ошибка при загрузке вопросов:", e);
+  }
+}
+
+nextBtn.addEventListener('click', () => {
+  try {
+    const checkboxes = questionContainer.querySelectorAll('input[type="checkbox"]');
+    let yesCount = 0;
+    checkboxes.forEach(cb => { if(cb.checked) yesCount++; });
+
+    const test = tests[currentTestIndex];
+    const currentScore = yesCount * test.scorePerQuestion;
+    const currentCategory = test.categories[currentCategoryIndex];
+
+    if(test.operation === "add") {
+      scores[currentCategory.name] = Math.min(scores[currentCategory.name] + currentScore, 100);
+    } else if(test.operation === "subtract") {
+      scores[currentCategory.name] = Math.max(scores[currentCategory.name] - currentScore, 0);
+    }
+
+    questionContainer.innerHTML = "";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if(currentSubcategoryIndex < currentCategory.subcategories.length - 1) {
+      currentSubcategoryIndex++;
+      loadCurrentQuestion();
+    } else {
+      finalScores[currentCategory.name] = scores[currentCategory.name];
+      if(currentCategoryIndex < test.categories.length - 1) {
+        currentCategoryIndex++;
+        currentSubcategoryIndex = 0;
+        loadCurrentQuestion();
+      } else {
+        showFinalMenu();
+      }
+    }
+  } catch (e) {
+    console.error("Ошибка при обработке ответа:", e);
+  }
+});
+
+function showFinalMenu() {
+  const existingFinalMenu = document.getElementById('final-menu');
+  if(existingFinalMenu) {
+    existingFinalMenu.remove();
+  }
+
+  questionContainer.style.display = "none";
+  nextBtn.style.display = "none";
+  resultsEl.style.display = "block";
+  resultTableBody.innerHTML = "";
+
+  // Изменяем заголовок таблицы для теста дефицита
+  if(currentTestIndex === 1) {
+    document.querySelector('#result-table thead tr th:nth-child(2)').textContent = "Процент дефицита (%)";
+  }
+
+  for (let mediator in finalScores) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${mediator}</td><td>${finalScores[mediator]}%</td>`;
+    resultTableBody.appendChild(tr);
+  }
+
+  drawUnifiedChart();
+
+  if(currentTestIndex === 0) {
+    const dominator = Object.keys(finalScores).reduce((a, b) => finalScores[a] > finalScores[b] ? a : b);
+    interpretationEl.innerHTML = `<p>Исходя из предоставленных ответов, можно сделать вывод, что наиболее выраженный нейромедиатор у Вас – <strong>${dominator}</strong>.</p>`;
+  } else {
+    const deficient = Object.keys(finalScores).filter(mediator => finalScores[mediator] < 50);
+    let deficitText = deficient.length
+      ? deficient.join(", ")
+      : Object.keys(finalScores).reduce((a, b) => finalScores[a] < finalScores[b] ? a : b);
+    let deficitPercents = deficient.length
+      ? deficient.map(m => `${m}: ${finalScores[m]}% дефицита`).join("; ")
+      : `${deficitText}: ${finalScores[deficitText]}% дефицита`;
+    interpretationEl.innerHTML = `<p>Анализ ваших ответов указывает на дефицит в следующих системах: <strong>${deficitText}</strong>.<br>Процент дефицита: <strong>${deficitPercents}</strong>.</p>`;
+  }
+
+  buildDescriptions();
+
+  const finalMenu = document.createElement('div');
+  finalMenu.id = 'final-menu';
+  finalMenu.innerHTML = `
+    <button id="back-to-menu" class="next-btn" style="margin-top:20px;">Вернуться обратно к главному меню выбора теста</button>
+    <button id="switch-test" class="next-btn" style="margin-top:20px;">
+      Начать ${currentTestIndex === 0 ? 'тест для оценки дефицита нейромедиатора' : 'тест для выявления преобладающего нейромедиатора'}
+    </button>
+  `;
+  resultsEl.appendChild(finalMenu);
+
+  document.getElementById('back-to-menu').addEventListener('click', () => {
+    resultsEl.style.display = "none";
+    showMainMenu();
+  });
+  document.getElementById('switch-test').addEventListener('click', () => {
+    resultsEl.style.display = "none";
+    currentTestIndex = currentTestIndex === 0 ? 1 : 0;
+    currentCategoryIndex = 0;
+    currentSubcategoryIndex = 0;
+    initScores(tests[currentTestIndex]);
+    const fm = document.getElementById('final-menu');
+    if(fm) fm.remove();
+    loadCurrentQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+function drawUnifiedChart() {
+  unifiedChartContainer.innerHTML = "";
+  const size = 300, center = size / 2;
+  const rings = [
+    { name: "Дофамин", color: "#ff6384", thickness: 20, radius: 140 },
+    { name: "Ацетилхолин", color: "#36a2eb", thickness: 20, radius: 110 },
+    { name: "ГАМК", color: "#ffce56", thickness: 20, radius: 80 },
+    { name: "Серотонин", color: "#4bc0c0", thickness: 20, radius: 50 }
+  ];
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("width", size);
+  svg.setAttribute("height", size);
+
+  rings.forEach(ring => {
+    const circleBg = document.createElementNS(svgNS, "circle");
+    circleBg.setAttribute("cx", center);
+    circleBg.setAttribute("cy", center);
+    circleBg.setAttribute("r", ring.radius);
+    circleBg.setAttribute("stroke", "#e6e6e6");
+    circleBg.setAttribute("stroke-width", ring.thickness);
+    circleBg.setAttribute("fill", "none");
+    svg.appendChild(circleBg);
+
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("cx", center);
+    circle.setAttribute("cy", center);
+    circle.setAttribute("r", ring.radius);
+    circle.setAttribute("stroke", ring.color);
+    circle.setAttribute("stroke-width", ring.thickness);
+    circle.setAttribute("fill", "none");
+    const circumference = 2 * Math.PI * ring.radius;
+    let percent = finalScores[ring.name] || 0;
+    percent = Math.min(percent, 100);
+    const offset = circumference - (percent / 100) * circumference;
+    circle.setAttribute("stroke-dasharray", circumference);
+    circle.setAttribute("stroke-dashoffset", circumference);
+    circle.style.transition = "stroke-dashoffset 1s ease-in-out";
+    svg.appendChild(circle);
+
+    setTimeout(() => {
+      circle.setAttribute("stroke-dashoffset", offset);
+    }, 100);
+  });
+
+  unifiedChartContainer.appendChild(svg);
+  legendEl.innerHTML = rings.map(ring =>
+    `<span><span class="dot" style="background:${ring.color}"></span>${ring.name}: ${finalScores[ring.name] || 0}%</span>`
+  ).join(' ');
+}
+
+function buildDescriptions() {
+  if (currentTestIndex === 1) {
+    const desc = {
+      "Дофамин": (score) => {
+        return `
+          <h4>Обнаружен дефицит дофамина</h4>
+          <p>Первые симптомы снижения уровня дофамина...</p>
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Показатель</th>
+                <th>25%</th>
+                <th>60%</th>
+                <th>90%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="https://example.com/фенилаланин" target="_blank">Фенилаланин</a> (мг)</td><td>500</td><td>1000</td><td>2000</td></tr>
+              <tr><td><a href="https://example.com/тирозин" target="_blank">Тирозин</a> (мг)</td><td>500</td><td>1000</td><td>2000</td></tr>
+              <tr><td><a href="https://example.com/метионин" target="_blank">Метионин</a> (мг)</td><td>250</td><td>500</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/родиола" target="_blank">Родиола</a> (мг)</td><td>50</td><td>100</td><td>200</td></tr>
+              <tr><td><a href="https://example.com/пиридоксин" target="_blank">Пиридоксин</a> (мг)</td><td>5</td><td>10</td><td>50</td></tr>
+              <tr><td><a href="https://example.com/витамины-группы-в" target="_blank">Витамины группы В</a> (мг)</td><td>25</td><td>50</td><td>100</td></tr>
+              <tr><td><a href="https://example.com/фосфатидилсерин" target="_blank">Фосфатидилсерин</a> (мг)</td><td>50</td><td>100</td><td>200</td></tr>
+              <tr><td><a href="https://example.com/гинкго-билоба" target="_blank">Гинкго билоба</a> (мг)</td><td>50</td><td>75</td><td>100</td></tr>
+            </tbody>
+          </table>
+          <p>Рекомендации: увеличьте потребление продуктов, богатых фенилаланином и тирозином...</p>
+          <p><strong>Описание личности:</strong> При дефиците дофамина...</p>
+        `;
+      },
+      "Серотонин": (score) => {
+        return `
+          <h4>Обнаружен дефицит сератонина</h4>
+          <p>Серотонин отвечает за стабильность настроения...</p>
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Показатель</th>
+                <th>25%</th>
+                <th>60%</th>
+                <th>90%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="https://example.com/кальций" target="_blank">Кальций</a></td><td>500</td><td>750</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/рыбный-жир-омега3" target="_blank">Рыбный жир омега-3</a></td><td>500</td><td>1000</td><td>2000</td></tr>
+              <tr><td><a href="https://example.com/5-нтр" target="_blank">5-НТР</a></td><td>100</td><td>200</td><td>500</td></tr>
+              <tr><td><a href="https://example.com/магний" target="_blank">Магний</a></td><td>200</td><td>400</td><td>600</td></tr>
+              <tr><td><a href="https://example.com/мелатонин" target="_blank">Мелатонин</a> (перед сном)</td><td>0.5</td><td>1-2</td><td>2-6</td></tr>
+              <tr><td><a href="https://example.com/витамин-в6" target="_blank">Витамин В6</a> (Пиридоксин)</td><td>5</td><td>10</td><td>50</td></tr>
+              <tr><td><a href="https://example.com/цинк" target="_blank">Цинк</a></td><td>15</td><td>30</td><td>45</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Описание личности:</strong> Недостаток сератонина может вызывать постоянное чувство усталости...</p>
+        `;
+      },
+      "Ацетилхолин": (score) => {
+        return `
+          <h4>Обнаружен дефицит ацетилхолина</h4>
+          <p>Ацетилхолин играет ключевую роль в процессах памяти и обучения...</p>
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Показатель</th>
+                <th>25%</th>
+                <th>60%</th>
+                <th>90%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="https://example.com/холин" target="_blank">Холин</a></td><td>100</td><td>200</td><td>500</td></tr>
+              <tr><td><a href="https://example.com/фосфатидилсерин" target="_blank">Фосфатидилсерин</a></td><td>50</td><td>100</td><td>200</td></tr>
+              <tr><td><a href="https://example.com/ацетил-l-карнитин" target="_blank">Ацетил-L-Карнитин</a></td><td>250</td><td>500</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/dha-омега3" target="_blank">DHA Омега-3</a></td><td>200</td><td>500</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/витамин-в1" target="_blank">Витамин В1 (тиамин)</a></td><td>25</td><td>50</td><td>100</td></tr>
+              <tr><td><a href="https://example.com/витамин-в5" target="_blank">Витамин В5 (Пантотеновая кислота)</a></td><td>25</td><td>50</td><td>100</td></tr>
+              <tr><td><a href="https://example.com/таурин" target="_blank">Таурин</a></td><td>250</td><td>500</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/гинкго-билоба" target="_blank">Гинкго билоба</a></td><td>50</td><td>75</td><td>100</td></tr>
+              <tr><td><a href="https://example.com/корень-женьшеня" target="_blank">Корень Женьшеня</a></td><td>100</td><td>200</td><td>500</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Описание личности:</strong> При дефиците ацетилхолина возможно замедление мыслительных процессов...</p>
+        `;
+      },
+      "ГАМК": (score) => {
+        return `
+          <h4>Обнаружен дефицит ГАМК</h4>
+          <p>ГАМК является главным тормозным нейромедиатором, который помогает поддерживать эмоциональную стабильность...</p>
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Показатель</th>
+                <th>25%</th>
+                <th>60%</th>
+                <th>90%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="https://example.com/инозитол" target="_blank">Инозитол</a></td><td>500</td><td>1000</td><td>1000+</td></tr>
+              <tr><td><a href="https://example.com/гамма-аминомасляная-кислота" target="_blank">Гамма-аминомасляная кислота</a></td><td>100</td><td>500</td><td>1000</td></tr>
+              <tr><td><a href="https://example.com/мелатонин" target="_blank">Мелатонин</a></td><td>1</td><td>3</td><td>5</td></tr>
+              <tr><td><a href="https://example.com/витамин-в1" target="_blank">Витамин В1 (тиамин)</a></td><td>200</td><td>400</td><td>600</td></tr>
+              <tr><td><a href="https://example.com/витамин-в6" target="_blank">Витамин В6 (Пиридоксин)</a></td><td>5</td><td>10</td><td>50</td></tr>
+              <tr><td><a href="https://example.com/корень-валерианы" target="_blank">Корень валерианы</a></td><td>100</td><td>200</td><td>500</td></tr>
+              <tr><td><a href="https://example.com/пассифлора" target="_blank">Пассифлора</a></td><td>200</td><td>500</td><td>1000</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Описание личности:</strong> Недостаток ГАМК часто сопровождается повышенной восприимчивостью к стрессу...</p>
+        `;
+      }
+    };
+    let html = "";
+    for (let mediator in finalScores) {
+      html += `<div class="accordion-item">
+        <div class="accordion-header">${mediator} (${finalScores[mediator]}% дефицита)</div>
+        <div class="accordion-content">${desc[mediator](finalScores[mediator])}</div>
+      </div>`;
+    }
+    html += `<p style="margin-top:15px;font-style:italic;font-size:14px;">
+      Внимание: представленные рекомендации и данные о добавках носят исключительно ознакомительный характер. Перед началом применения любых средств обязательно проконсультируйтесь с врачом.
+    </p>`;
+    descriptionsEl.innerHTML = html;
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', function() {
+        this.classList.toggle('active');
+        let content = this.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      });
+    });
+  } else {
+    // Логика для первого теста остаётся без изменений
+    const desc = {
+      "Дофамин": (score) => {
+        if (score >= 70) {
+          return `
+            <p><strong>Избыточный уровень нейромедиатора.</strong> Высокое содержание дофамина может провоцировать импульсивные реакции, чрезмерную активность и даже агрессивное поведение. Такое состояние зачастую сопровождается сильной мотивацией, которая иногда выходит за рамки рационального подхода.</p>
+            <p><em>Рекомендации по препаратам:</em> в некоторых случаях может потребоваться применение антагонистов дофаминовых рецепторов под наблюдением врача.</p>
+            <p><strong>Характеристика личности:</strong> Люди с таким профилем часто называют «гонщиками» – они энергичны, амбициозны и не боятся рисковать для достижения своих целей.</p>
+          `;
+        } else if (score >= 40) {
+          return `
+            <p><strong>Нормальный уровень нейромедиатора.</strong> Сбалансированное количество дофамина поддерживает активность, творческое мышление и положительный настрой, способствуя стабильной мотивации.</p>
+            <p><em>Рекомендации по препаратам:</em> специальные препараты не требуются – достаточно поддерживать здоровый образ жизни и сбалансированное питание.</p>
+            <p><strong>Характеристика личности:</strong> Представители этой группы отличаются умеренной активностью, оптимизмом и способностью успешно справляться с жизненными трудностями.</p>
+          `;
+        } else {
+          return `
+            <p><strong>Низкий уровень нейромедиатора.</strong> Недостаток дофамина может приводить к апатии, сниженной активности и трудностям с концентрацией, что отражается на общем эмоциональном состоянии.</p>
+            <p><em>Рекомендации по препаратам:</em> иногда целесообразно применение дофаминэргических стимуляторов под строгим наблюдением специалиста.</p>
+            <p><strong>Характеристика личности:</strong> Люди с таким профилем зачастую более спокойны и нуждаются в дополнительной внешней стимуляции для повышения активности.</p>
+          `;
+        }
+      },
+      "Ацетилхолин": (score) => {
+        if (score >= 70) {
+          return `
+            <p><strong>Избыточный уровень ацетилхолина.</strong> Повышенное содержание этого нейромедиатора может вызывать повышенную возбудимость, частые эмоциональные всплески и нарушения в балансе настроения.</p>
+            <p><em>Рекомендации по препаратам:</em> в отдельных случаях применяют холинолитики для коррекции уровня, однако это должно происходить под строгим медицинским наблюдением.</p>
+            <p><strong>Характеристика личности:</strong> Такие люди обычно отличаются яркой эмоциональностью и творческим потенциалом, хотя иногда могут быть чрезмерно активными.</p>
+          `;
+        } else if (score >= 40) {
+          return `
+            <p><strong>Нормальный уровень ацетилхолина.</strong> Оптимальное количество этого нейромедиатора обеспечивает хорошую память, гибкость мышления и творческий подход к решению задач.</p>
+            <p><em>Рекомендации по препаратам:</em> специальные препараты обычно не требуются, главное – поддерживать активный ум и сбалансированное питание.</p>
+            <p><strong>Характеристика личности:</strong> Представители данной группы отличаются гармонией, уравновешенностью и адаптивностью к изменениям в окружающем мире.</p>
+          `;
+        } else {
+          return `
+            <p><strong>Низкий уровень ацетилхолина.</strong> Недостаток этого нейромедиатора может замедлять мыслительные процессы, снижать способность к запоминанию деталей и негативно влиять на скорость обучения.</p>
+            <p><em>Рекомендации по препаратам:</em> зачастую применяются ингибиторы ацетилхолинэстеразы или добавки с холином – лечение должно проводиться строго под наблюдением врача.</p>
+            <p><strong>Характеристика личности:</strong> Люди с этим профилем могут быть более спокойными и склонными к медленному восприятию информации, что требует дополнительной стимуляции.</p>
+          `;
+        }
+      },
+      "ГАМК": (score) => {
+        if (score >= 70) {
+          return `
+            <p><strong>Избыточный уровень ГАМК.</strong> Слишком высокий уровень этого нейромедиатора может приводить к чрезмерной расслабленности, сонливости и недостатку инициативы.</p>
+            <p><em>Рекомендации по препаратам:</em> может потребоваться корректировка режима дня и, при необходимости, использование стимуляторов под наблюдением врача.</p>
+            <p><strong>Характеристика личности:</strong> Люди с таким профилем обычно спокойны, предпочитают стабильность и избегают конфликтов.</p>
+          `;
+        } else if (score >= 40) {
+          return `
+            <p><strong>Нормальный уровень ГАМК.</strong> Оптимальное содержание этого нейромедиатора обеспечивает устойчивое эмоциональное состояние, здоровый сон и адекватное сопротивление стрессу.</p>
+            <p><em>Рекомендации по препаратам:</em> обычно не требуются – достаточно соблюдать правильный режим дня и питание.</p>
+            <p><strong>Характеристика личности:</strong> Представители данной группы характеризуются спокойствием, уравновешенностью и способностью концентрироваться даже в сложных ситуациях.</p>
+          `;
+        } else {
+          return `
+            <p><strong>Низкий уровень ГАМК.</strong> Недостаток этого тормозного нейромедиатора может привести к усиленной тревожности, частым перепадам настроения и общей эмоциональной неустойчивости.</p>
+            <p><em>Рекомендации по препаратам:</em> часто назначают анксиолитики или препараты, стимулирующие выработку ГАМК, однако применение должно быть строго по рецепту врача.</p>
+            <p><strong>Характеристика личности:</strong> Люди с таким профилем обычно испытывают повышенную чувствительность к стрессу и нуждаются в регулярном отдыхе, а также методах релаксации, таких как медитация или йога.</p>
+          `;
+        }
+      },
+      "Серотонин": (score) => {
+        if (score >= 70) {
+          return `
+            <p><strong>Избыточный уровень серотонина.</strong> Повышенное содержание серотонина может вызывать раздражительность, нарушения сна и резкие перепады настроения, что негативно отражается на эмоциональной стабильности.</p>
+            <p><em>Рекомендации по препаратам:</em> в отдельных случаях может потребоваться коррекция дозировки серотонинергических агентов под наблюдением врача.</p>
+            <p><strong>Характеристика личности:</strong> Такие люди часто проявляют высокую активность и эмоциональность, что помогает быстро принимать решения, но иногда приводит к нестабильности настроения.</p>
+          `;
+        } else if (score >= 40) {
+          return `
+            <p><strong>Нормальный уровень серотонина.</strong> Сбалансированное содержание серотонина способствует стабильному настроению, качественному сну и оптимистичному взгляду на жизнь.</p>
+            <p><em>Рекомендации по препаратам:</em> обычно специальные препараты не требуются, достаточно поддерживать активный образ жизни и проводить время на свежем воздухе.</p>
+            <p><strong>Характеристика личности:</strong> Представители данной группы отличаются уравновешенностью, оптимизмом и способностью справляться с повседневными стрессами.</p>
+          `;
+        } else {
+          return `
+            <p><strong>Низкий уровень серотонина.</strong> Недостаток серотонина может приводить к депрессивному состоянию, повышенной тревожности, нарушениям сна и общему упадку сил, что существенно влияет на качество жизни.</p>
+            <p><em>Рекомендации по препаратам:</em> часто назначают селективные ингибиторы обратного захвата серотонина, однако их применение должно осуществляться только по рецепту врача.</p>
+            <p><strong>Характеристика личности:</strong> Люди с таким профилем склонны к пессимистичному восприятию действительности и нуждаются в дополнительной поддержке для восстановления эмоционального равновесия.</p>
+          `;
+        }
+      }
+    };
+    let html = "";
+    for (let mediator in finalScores) {
+      html += `<div class="accordion-item">
+        <div class="accordion-header">${mediator} (${finalScores[mediator]}% дефицита)</div>
+        <div class="accordion-content">${desc[mediator](finalScores[mediator])}</div>
+      </div>`;
+    }
+    html += `<p style="margin-top:15px;font-style:italic;font-size:14px;">
+      Внимание: представленные рекомендации и данные о добавках носят исключительно ознакомительный характер. Перед началом применения любых средств обязательно проконсультируйтесь с врачом.
+    </p>`;
+    descriptionsEl.innerHTML = html;
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', function() {
+        this.classList.toggle('active');
+        let content = this.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      });
+    });
+  }
+}
+
+function showMainMenu() {
+  mainMenuEl.style.display = "block";
+  testTitleEl.classList.add('hidden');
+  questionContainer.style.display = "none";
+  nextBtn.style.display = "none";
+  intermediateResultsEl.style.display = "none";
+  resultsEl.style.display = "none";
+}
+
+document.getElementById('start-first-test').addEventListener('click', () => {
+  currentTestIndex = 0;
+  currentCategoryIndex = 0;
+  currentSubcategoryIndex = 0;
+  initScores(tests[currentTestIndex]);
+  mainMenuEl.style.display = "none";
+  testTitleEl.classList.remove('hidden');
+  loadCurrentQuestion();
+});
+
+document.getElementById('start-second-test').addEventListener('click', () => {
+  currentTestIndex = 1;
+  currentCategoryIndex = 0;
+  currentSubcategoryIndex = 0;
+  initScores(tests[currentTestIndex]);
+  mainMenuEl.style.display = "none";
+  testTitleEl.classList.remove('hidden');
+  loadCurrentQuestion();
+});
+</script>
+</body>
+</html>
